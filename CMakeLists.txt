@@ -31,12 +31,13 @@ add_executable(breakout
         exceptions/sdl_surface_init_exception.h
 )
 
+file(COPY ${CMAKE_SOURCE_DIR}/assets DESTINATION ${CMAKE_BINARY_DIR}/)
+
 target_sources(
         breakout
         PRIVATE
         main.cpp
 )
-
 
 find_package(SDL3 CONFIG REQUIRED)
 target_link_libraries(breakout PRIVATE SDL3::SDL3)
