@@ -1,7 +1,20 @@
 #include <iostream>
 
-int main()
+#include "breakout.h"
+#include "sdl.h"
+
+
+int main(int argc, char* argv[])
 {
-    std::cout << "Hello, World!" << std::endl;
+    try
+    {
+        sdl sdl;
+        breakout breakout;
+        breakout.start();
+    }catch (const std::exception& e)
+    {
+        std::cout << "Unhandled exception: " << e.what();
+        system("pause");
+    }
     return 0;
 }
