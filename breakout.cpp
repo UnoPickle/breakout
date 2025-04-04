@@ -1,7 +1,13 @@
 #include "breakout.h"
 
+#include <SDL3/SDL_timer.h>
 
-breakout::breakout() : _window("my game", 1920, 1080, 0), _sdl_renderer(_window)
+#include "state.h"
+#include "vo/image_obj.h"
+
+
+
+breakout::breakout() : _window("my game", 1920 / 2, 1080 / 2, 0), _sdl_renderer(_window)
 {
 }
 
@@ -11,11 +17,26 @@ breakout::~breakout()
 
 void breakout::start()
 {
-    sdl_surface surface("assets/snail.bmp");
-    sdl_texture texture(_sdl_renderer, surface);
+    uint64_t prev_time = SDL_GetTicks();
 
-    _sdl_renderer.render_texture(texture, SDL_FRect { 0, 0, 256, 256}, SDL_FRect { 0, 0, 512, 256});
-    _sdl_renderer.render();
+    while (state::running)
+    {
+        SDL_Event sdl_event;
+        while(SDL_PollEvent(&sdl_event))
+        {
+            _event_man.handle_event(sdl_event);
+        }
 
-    system("pause");
+        uint64_t cur_time = SDL_GetTicks();
+
+        const uint64_t deltatime = cur_time - prev_time;
+        update(deltatime);
+
+        prev_time = cur_time;
+    }
+}
+
+void breakout::update(uint64_t deltatime)
+{
+
 }
