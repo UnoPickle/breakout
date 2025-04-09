@@ -43,6 +43,11 @@ add_executable(breakout
         state.h
         events/keyboard_event_handler.cpp
         events/keyboard_event_handler.h
+        main.cpp
+        scenes/iscene.cpp
+        scenes/iscene.h
+        scenes/scene_obj.cpp
+        scenes/scene_obj.h
 )
 
 file(COPY ${CMAKE_SOURCE_DIR}/assets DESTINATION ${CMAKE_BINARY_DIR}/)
