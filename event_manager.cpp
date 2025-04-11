@@ -19,4 +19,4 @@ void event_manager::handle_event(const SDL_Event& e)
 
     default: ;
     }
-n}
+}

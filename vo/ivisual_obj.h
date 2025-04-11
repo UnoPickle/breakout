@@ -11,7 +11,6 @@ public:
     virtual ~ivisual_obj() = default;
 
     virtual void start() = 0;
-    virtual void update(uint64_t deltatime) = 0;
     virtual void exit() = 0;
 
     virtual sdl_surface& get_surf() = 0;

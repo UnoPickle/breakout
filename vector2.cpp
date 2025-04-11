@@ -2,7 +2,7 @@
 
 #include "vector2.h"
 
-vector2::vector2(const int64_t x, const int64_t y) : x(x), y(y)
+vector2::vector2(const float x, const float y) : x(x), y(y)
 {
 }
 

@@ -8,9 +8,11 @@ class sdl_surface
 {
 public:
     explicit sdl_surface(const std::string& filename);
+    sdl_surface(const sdl_surface& other);
     ~sdl_surface();
 
     [[nodiscard]] SDL_Surface* surface_object() const;
+    sdl_surface& operator=(const sdl_surface& other);
 
 private:
     SDL_Surface* _surface;

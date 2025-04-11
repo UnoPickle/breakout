@@ -48,6 +48,8 @@ add_executable(breakout
         scenes/iscene.h
         scenes/scene_obj.cpp
         scenes/scene_obj.h
+        scenes/test_scene.cpp
+        scenes/test_scene.h
 )
 
 file(COPY ${CMAKE_SOURCE_DIR}/assets DESTINATION ${CMAKE_BINARY_DIR}/)

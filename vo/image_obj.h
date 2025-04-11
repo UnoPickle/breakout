@@ -9,7 +9,6 @@ public:
     image_obj(sdl_surface& surf, bool collideable, const vector2& start_pos);
 
     void start() override;
-    void update(uint64_t deltatime) override;
     void exit() override;
     sdl_surface& get_surf() override;
 
