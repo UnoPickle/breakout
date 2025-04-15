@@ -29,14 +29,36 @@ add_executable(breakout
         sdl/sdl_surface.h
         exceptions/sdl_surface_init_exception.cpp
         exceptions/sdl_surface_init_exception.h
+        vo/ivisual_obj.cpp
+        vo/ivisual_obj.h
+        vo/image_obj.cpp
+        vo/image_obj.h
+        vector2.cpp
+        vector2.h
+        event_manager.cpp
+        event_manager.h
+        input.cpp
+        input.h
+        state.cpp
+        state.h
+        events/keyboard_event_handler.cpp
+        events/keyboard_event_handler.h
+        main.cpp
+        scenes/iscene.cpp
+        scenes/iscene.h
+        scenes/scene_obj.cpp
+        scenes/scene_obj.h
+        scenes/test_scene.cpp
+        scenes/test_scene.h
 )
+
+file(COPY ${CMAKE_SOURCE_DIR}/assets DESTINATION ${CMAKE_BINARY_DIR}/)
 
 target_sources(
         breakout
         PRIVATE
         main.cpp
 )
-
 
 find_package(SDL3 CONFIG REQUIRED)
 target_link_libraries(breakout PRIVATE SDL3::SDL3)
