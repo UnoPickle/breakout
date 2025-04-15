@@ -10,7 +10,7 @@ public:
     virtual ~iscene() = default;
 
     virtual void start() = 0;
-    virtual void update(const uint64_t deltatime) = 0;
+    virtual void update(double deltatime) = 0;
     virtual void exit() = 0;
 
     void render(const sdl_renderer& renderer);

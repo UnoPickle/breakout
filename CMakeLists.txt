@@ -50,15 +50,19 @@ add_executable(breakout
         scenes/scene_obj.h
         scenes/test_scene.cpp
         scenes/test_scene.h
+        scenes/breakout_scene.cpp
+        scenes/breakout_scene.h
+        resources/resource_manager.cpp
+        resources/resource_manager.h
+        resources/iresource.cpp
+        resources/iresource.h
+        resources/image_resource.cpp
+        resources/image_resource.h
+        exceptions/resource_not_found_exception.cpp
+        exceptions/resource_not_found_exception.h
 )
 
 file(COPY ${CMAKE_SOURCE_DIR}/assets DESTINATION ${CMAKE_BINARY_DIR}/)
-
-target_sources(
-        breakout
-        PRIVATE
-        main.cpp
-)
 
 find_package(SDL3 CONFIG REQUIRED)
 target_link_libraries(breakout PRIVATE SDL3::SDL3)

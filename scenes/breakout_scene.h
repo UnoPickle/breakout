@@ -2,19 +2,16 @@
 #include "iscene.h"
 #include "../vo/image_obj.h"
 
-
-class test_scene : public iscene
-{
+class breakout_scene : public iscene {
 public:
-    test_scene();
+    breakout_scene();
+    ~breakout_scene() override = default;
+
 
     void start() override;
     void update(double deltatime) override;
     void exit() override;
 
-    ~test_scene() override;
-
 private:
-    sdl_surface _img_surf;
-    image_obj _img_obj;
+    image_obj m_player;
 };

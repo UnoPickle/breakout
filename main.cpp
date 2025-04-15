@@ -16,5 +16,6 @@ int main(int argc, char* argv[])
         std::cout << "Unhandled exception: " << e.what();
         system("pause");
     }
+
     return 0;
 }
