@@ -13,8 +13,10 @@ public:
     ~breakout();
 
     void start();
-    void update(uint64_t deltatime);
+    void update(double deltatime);
     void draw() const;
+
+    static void load_resources();
 
     void set_scene(iscene* new_scene);
 
