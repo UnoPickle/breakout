@@ -5,7 +5,7 @@
 #include "../resources/resource_manager.h"
 
 breakout_scene::breakout_scene() : m_player(
-    static_cast<image_resource*>(g_resource_manager.get_resource("assets/snail.bmp"))->get_surface(), true, {0, 0})
+    static_cast<image_resource*>(g_resource_manager.get_resource("assets/player.bmp"))->get_surface(), true, {0, 0})
 {
     add_object(m_player);
 }

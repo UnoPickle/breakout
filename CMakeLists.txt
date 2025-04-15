@@ -58,15 +58,11 @@ add_executable(breakout
         resources/iresource.h
         resources/image_resource.cpp
         resources/image_resource.h
+        exceptions/resource_not_found_exception.cpp
+        exceptions/resource_not_found_exception.h
 )
 
 file(COPY ${CMAKE_SOURCE_DIR}/assets DESTINATION ${CMAKE_BINARY_DIR}/)
-
-target_sources(
-        breakout
-        PRIVATE
-        main.cpp
-)
 
 find_package(SDL3 CONFIG REQUIRED)
 target_link_libraries(breakout PRIVATE SDL3::SDL3)

@@ -67,4 +67,5 @@ void breakout::draw() const
 void breakout::load_resources()
 {
     g_resource_manager.load_surface("assets/snail.bmp");
+    g_resource_manager.load_surface("assets/player.bmp");
 }
