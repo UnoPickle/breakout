@@ -1,6 +1,7 @@
+#pragma once
+#include <cstdint>
 
-
-#ifndef BREAKOUT_DEFS_H
-#define BREAKOUT_DEFS_H
-
-#endif //BREAKOUT_DEFS_H
+namespace breakout_defs
+{
+    constexpr uint32_t WINDOW_WIDTH = 1920 / 2, WINDOW_HEIGHT = 1080 / 2;
+}

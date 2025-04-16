@@ -2,7 +2,7 @@
 
 #include "ivisual_obj.h"
 
-ivisual_obj::ivisual_obj(bool collideable, const vector2& start_pos) : _collideable(collideable), _pos(start_pos)
+ivisual_obj::ivisual_obj(const vector2& start_pos) : _pos(start_pos)
 {
 }
 

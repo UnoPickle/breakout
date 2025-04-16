@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.28)
 project(breakout)
 
+file(COPY ${CMAKE_SOURCE_DIR}/assets DESTINATION ${CMAKE_BINARY_DIR}/)
 
 add_executable(breakout
         sdl.cpp
@@ -60,9 +61,15 @@ add_executable(breakout
         resources/image_resource.h
         exceptions/resource_not_found_exception.cpp
         exceptions/resource_not_found_exception.h
+        breakout_defs.h
+        utils/collision_utils.cpp
+        utils/collision_utils.h
+        vo/rect_obj.cpp
+        vo/rect_obj.h
+        exceptions/sdl_surface_exception.cpp
+        exceptions/sdl_surface_exception.h
 )
 
-file(COPY ${CMAKE_SOURCE_DIR}/assets DESTINATION ${CMAKE_BINARY_DIR}/)
 
 find_package(SDL3 CONFIG REQUIRED)
 target_link_libraries(breakout PRIVATE SDL3::SDL3)

@@ -6,11 +6,10 @@
 class image_obj : public ivisual_obj
 {
 public:
-    image_obj(sdl_surface& surf, bool collideable, const vector2& start_pos);
+    image_obj(sdl_surface& surf, const vector2& start_pos);
 
-    void start() override;
-    void exit() override;
     sdl_surface& get_surf() override;
+    ~image_obj() override = default;
 
 protected:
     sdl_surface& _img_surf;
