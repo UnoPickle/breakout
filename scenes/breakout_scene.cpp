@@ -34,7 +34,7 @@ breakout_scene::breakout_scene() : m_player(
     m_player.set_pos(m_player_next_pos);
 
     m_ball_next_pos.x = m_player_next_pos.x + m_player.get_surf().surface_object()->w / 2;
-    m_ball_next_pos.y = m_player_next_pos.y - m_player.get_surf().surface_object()->h -BALL_START_HEIGHT_FROM_PLAYER;
+    m_ball_next_pos.y = m_player_next_pos.y - m_player.get_surf().surface_object()->h - BALL_START_HEIGHT_FROM_PLAYER;
 
 
     add_object(m_ball);
@@ -43,7 +43,7 @@ breakout_scene::breakout_scene() : m_player(
 
 void breakout_scene::start()
 {
-    generate_tiles(5);
+    generate_tiles(LEVEL_AMOUNT);
 }
 
 void breakout_scene::update(double deltatime)
@@ -191,17 +191,29 @@ void breakout_scene::handle_ball_tile_collision()
             static_cast<float>(tile->get_surf().surface_object()->h)
         };
 
-        if (collision_utils::collision_dir_result res = collision_utils::check_collision(ball_rect, tile_rect); res != 0)
+        if (collision_utils::collision_dir_result res = collision_utils::check_collision(ball_rect, tile_rect); res !=
+            0)
         {
             remove_object(id);
             to_remove.push_back(id);
 
-            if ((res & (uint8_t)collision_utils::collision_dir::UP_LEFT) != 0 || (res & (uint8_t)collision_utils::collision_dir::UP_RIGHT) != 0)
+            if ((res & (uint8_t)collision_utils::collision_dir::UP_LEFT) != 0 || (res & (uint8_t)
+                collision_utils::collision_dir::UP_RIGHT) != 0)
             {
                 m_ball_dir.y *= -1;
             }
 
-            if (ball_rect.x > tile_rect.x + tile_rect.w || ball_rect.x < tile_rect.x)
+            if (((res & (uint8_t)collision_utils::collision_dir::UP_LEFT) && (res & (uint8_t)
+                    collision_utils::collision_dir::UP_RIGHT) == 0)
+                || ((res & (uint8_t)collision_utils::collision_dir::UP_RIGHT) && (res & (uint8_t)
+                    collision_utils::collision_dir::UP_LEFT) == 0)
+                ||
+                ((res & (uint8_t)collision_utils::collision_dir::DOWN_LEFT) && (res & (uint8_t)
+                    collision_utils::collision_dir::DOWN_RIGHT) == 0)
+                ||
+                ((res & (uint8_t)collision_utils::collision_dir::DOWN_RIGHT) && (res & (uint8_t)
+                    collision_utils::collision_dir::DOWN_LEFT) == 0)
+            )
             {
                 m_ball_dir.x *= -1;
             }
