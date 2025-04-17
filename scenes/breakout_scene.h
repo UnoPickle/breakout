@@ -7,7 +7,6 @@
 
 constexpr uint32_t PLAYER_BOTTOM_MARGIN = 20;
 constexpr double PLAYER_SPEED = 600;
-constexpr double BALL_SPEED = 200;
 
 constexpr uint32_t LEVEL_AMOUNT = 5;
 constexpr uint32_t LEVEL_HEIGHT_MARGIN = 10;
@@ -60,4 +59,6 @@ private:
     image_obj m_ball;
     vector2 m_ball_dir;
     vector2 m_ball_next_pos;
+
+    uint32_t m_ball_speed = 200;
 };

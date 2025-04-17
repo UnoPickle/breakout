@@ -111,8 +111,8 @@ void breakout_scene::move_ball()
 
 void breakout_scene::handle_ball(double deltatime)
 {
-    m_ball_next_pos.x += deltatime * BALL_SPEED * m_ball_dir.x;
-    m_ball_next_pos.y += deltatime * BALL_SPEED * m_ball_dir.y;
+    m_ball_next_pos.x += deltatime * m_ball_speed * m_ball_dir.x;
+    m_ball_next_pos.y += deltatime * m_ball_speed * m_ball_dir.y;
 }
 
 void breakout_scene::check_ball_boundaries()
@@ -157,12 +157,12 @@ void breakout_scene::handle_ball_player_collision()
 
     if (player_cos_res != 0)
     {
-        if (ball_rect.y > player_rect.y + player_rect.h || ball_rect.y < player_rect.y)
+        if (m_ball.get_pos().y > player_rect.y + player_rect.h || m_ball.get_pos().y < player_rect.y)
         {
             m_ball_dir.y *= -1;
         }
 
-        if (ball_rect.x > player_rect.x + player_rect.w || ball_rect.x < player_rect.x)
+        if (m_ball.get_pos().x > player_rect.x + player_rect.w || m_ball.get_pos().x < player_rect.x)
         {
             if (m_ball_dir.x != static_cast<float>(m_player_dir))
             {
@@ -197,26 +197,16 @@ void breakout_scene::handle_ball_tile_collision()
             remove_object(id);
             to_remove.push_back(id);
 
-            if ((res & (uint8_t)collision_utils::collision_dir::UP_LEFT) != 0 || (res & (uint8_t)
-                collision_utils::collision_dir::UP_RIGHT) != 0)
+            if (m_ball.get_pos().y > tile_rect.y + tile_rect.h || m_ball.get_pos().y < tile_rect.y)
             {
                 m_ball_dir.y *= -1;
             }
 
-            if (((res & (uint8_t)collision_utils::collision_dir::UP_LEFT) && (res & (uint8_t)
-                    collision_utils::collision_dir::UP_RIGHT) == 0)
-                || ((res & (uint8_t)collision_utils::collision_dir::UP_RIGHT) && (res & (uint8_t)
-                    collision_utils::collision_dir::UP_LEFT) == 0)
-                ||
-                ((res & (uint8_t)collision_utils::collision_dir::DOWN_LEFT) && (res & (uint8_t)
-                    collision_utils::collision_dir::DOWN_RIGHT) == 0)
-                ||
-                ((res & (uint8_t)collision_utils::collision_dir::DOWN_RIGHT) && (res & (uint8_t)
-                    collision_utils::collision_dir::DOWN_LEFT) == 0)
-            )
+            if (m_ball.get_pos().x > tile_rect.x + tile_rect.w || m_ball.get_pos().x < tile_rect.x)
             {
                 m_ball_dir.x *= -1;
             }
+            
         }
     }
 
