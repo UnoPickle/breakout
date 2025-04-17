@@ -16,11 +16,6 @@ private:
     std::unique_ptr<iscene> m_scene = nullptr;
 };
 
-iscene* scene_manager::active_scene() const
-{
-    return m_scene.get();
-}
-
 template <typename T, typename ... Args>
 void scene_manager::set_scene(Args&&... args)
 {

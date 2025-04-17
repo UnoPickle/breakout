@@ -5,6 +5,7 @@
 
 #include "../breakout_defs.h"
 #include "../input.h"
+#include "../scene_manager.hpp"
 #include "../resources/image_resource.h"
 #include "../resources/resource_manager.h"
 #include "../utils/collision_utils.h"
@@ -137,7 +138,7 @@ void breakout_scene::check_ball_boundaries()
 
     if (m_ball_next_pos.y > breakout_defs::WINDOW_HEIGHT - m_ball.get_surf().surface_object()->h)
     {
-        std::cout << "Game over!" << std::endl;;
+        g_scene_manager.set_scene<test_scene>();
     }
 }
 

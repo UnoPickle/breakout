@@ -1,3 +1,9 @@
+#include "scene_manager.hpp"
 
+scene_manager g_scene_manager;
 
-#include "scene_manager.h"
+iscene* scene_manager::active_scene() const
+{
+    return m_scene.get();
+}
+

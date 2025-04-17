@@ -68,6 +68,8 @@ add_executable(breakout
         vo/rect_obj.h
         exceptions/sdl_surface_exception.cpp
         exceptions/sdl_surface_exception.h
+        scene_manager.cpp
+        scene_manager.hpp
 )
 
 

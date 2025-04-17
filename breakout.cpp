@@ -7,14 +7,13 @@
 #include "state.h"
 #include "resources/resource_manager.h"
 #include "scenes/breakout_scene.h"
-
+#include "scene_manager.hpp"
 
 breakout::breakout() : _window("my game", breakout_defs::WINDOW_WIDTH, breakout_defs::WINDOW_HEIGHT, 0), _sdl_renderer(_window)
 {
     load_resources();
 
-    _current_scene = new breakout_scene();
-    _current_scene->start();
+    g_scene_manager.set_scene<breakout_scene>();
 }
 
 breakout::~breakout()
@@ -47,21 +46,14 @@ void breakout::start()
 
 void breakout::update(double deltatime)
 {
-    _current_scene->update(deltatime);
+    g_scene_manager.active_scene()->update(deltatime);
 }
 
-void breakout::set_scene(iscene* new_scene)
-{
-    _current_scene->exit();
-
-    _current_scene = new_scene;
-    _current_scene->start();
-}
 
 void breakout::draw() const
 {
     _sdl_renderer.clear();
-    _current_scene->render(_sdl_renderer);
+    g_scene_manager.active_scene()->render(_sdl_renderer);
     _sdl_renderer.render();
 }
 

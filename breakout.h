@@ -18,10 +18,7 @@ public:
 
     static void load_resources();
 
-    void set_scene(iscene* new_scene);
-
 private:
-    iscene* _current_scene;
     event_manager _event_man;
 
     sdl_window _window;
