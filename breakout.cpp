@@ -3,12 +3,13 @@
 #include <iostream>
 #include <SDL3/SDL_timer.h>
 
+#include "breakout_defs.h"
 #include "state.h"
 #include "resources/resource_manager.h"
 #include "scenes/breakout_scene.h"
 
 
-breakout::breakout() : _window("my game", 1920 / 2, 1080 / 2, 0), _sdl_renderer(_window)
+breakout::breakout() : _window("my game", breakout_defs::WINDOW_WIDTH, breakout_defs::WINDOW_HEIGHT, 0), _sdl_renderer(_window)
 {
     load_resources();
 
@@ -68,4 +69,5 @@ void breakout::load_resources()
 {
     g_resource_manager.load_surface("assets/snail.bmp");
     g_resource_manager.load_surface("assets/player.bmp");
+    g_resource_manager.load_surface("assets/ball.bmp");
 }

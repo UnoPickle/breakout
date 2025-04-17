@@ -4,7 +4,7 @@
 
 #include "../input.h"
 
-test_scene::test_scene() : _img_surf("assets/snail.bmp"), _img_obj(_img_surf, true, {0, 0})
+test_scene::test_scene() : _img_surf("assets/snail.bmp"), _img_obj(_img_surf, {0, 0})
 {
     add_object(_img_obj);
 }
