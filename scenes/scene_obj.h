@@ -9,7 +9,6 @@ public:
     scene_obj(ivisual_obj& object, const scene_obj_id id);
 
 
-
     [[nodiscard]] ivisual_obj& object() const;
     const scene_obj_id id() const;
 
