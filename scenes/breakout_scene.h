@@ -6,7 +6,6 @@
 #include "../vo/rect_obj.h"
 
 constexpr uint32_t PLAYER_BOTTOM_MARGIN = 20;
-constexpr double PLAYER_SPEED = 600;
 
 constexpr uint32_t LEVEL_AMOUNT = 5;
 constexpr uint32_t LEVEL_HEIGHT_MARGIN = 10;
@@ -15,6 +14,14 @@ constexpr uint32_t TILE_PADDING = 10;
 constexpr uint32_t TILE_HEIGHT = 40;
 
 constexpr uint32_t BALL_START_HEIGHT_FROM_PLAYER = 10;
+
+constexpr double PLAYER_ACCELERATION = 1500;
+constexpr double PLAYER_DEACCELERATION = 2000;
+constexpr double PLAYER_MAX_VELOCITY = 800;
+
+constexpr double BALL_MIN_SPEED = 200;
+constexpr double BALL_MAX_SPEED = 500;
+constexpr double TILE_SLOWDOWN = 100;
 
 enum class direction
 {
@@ -46,6 +53,9 @@ public:
     void handle_ball_player_collision();
     void handle_ball_tile_collision();
 
+    void inc_ball_velocity(double velocity_to_inc);
+    void dec_ball_velocity(double velocity_to_dec);
+
     void move_player();
     void enforce_player_boundaries();
 
@@ -55,10 +65,11 @@ private:
     image_obj m_player;
     vector2 m_player_next_pos;
     direction m_player_dir;
+    double m_player_velocity = 0;
 
     image_obj m_ball;
     vector2 m_ball_dir;
     vector2 m_ball_next_pos;
 
-    uint32_t m_ball_speed = 200;
+    double m_ball_velocity = BALL_MIN_SPEED;
 };

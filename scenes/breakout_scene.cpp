@@ -92,17 +92,29 @@ void breakout_scene::generate_level(const vector2& start_location, const uint32_
 
 void breakout_scene::handle_input(double deltatime)
 {
-    if (g_input.get_key(SDL_SCANCODE_RIGHT) == key_state::DOWN)
+    if (g_input.get_key(SDL_SCANCODE_RIGHT) == key_state::DOWN || g_input.get_key(SDL_SCANCODE_LEFT) == key_state::DOWN)
     {
-        m_player_next_pos.x += deltatime * PLAYER_SPEED;
-        m_player_dir = direction::RIGHT;
+        m_player_velocity += deltatime * PLAYER_ACCELERATION;
+        m_player_velocity = std::min(m_player_velocity, PLAYER_MAX_VELOCITY);
+
+        if (g_input.get_key(SDL_SCANCODE_RIGHT) == key_state::DOWN)
+        {
+            m_player_dir = direction::RIGHT;
+        }
+
+        if (g_input.get_key(SDL_SCANCODE_LEFT) == key_state::DOWN)
+        {
+            m_player_dir = direction::LEFT;
+        }
+
+    }else
+    {
+        m_player_velocity -= deltatime * PLAYER_ACCELERATION;
+        m_player_velocity = std::max(m_player_velocity, 0.0);
     }
 
-    if (g_input.get_key(SDL_SCANCODE_LEFT) == key_state::DOWN)
-    {
-        m_player_next_pos.x -= deltatime * PLAYER_SPEED;
-        m_player_dir = direction::LEFT;
-    }
+
+    m_player_next_pos.x += deltatime * m_player_velocity * (m_player_dir == direction::RIGHT ? 1 : -1);
 }
 
 void breakout_scene::move_ball()
@@ -112,8 +124,8 @@ void breakout_scene::move_ball()
 
 void breakout_scene::handle_ball(double deltatime)
 {
-    m_ball_next_pos.x += deltatime * m_ball_speed * m_ball_dir.x;
-    m_ball_next_pos.y += deltatime * m_ball_speed * m_ball_dir.y;
+    m_ball_next_pos.x += deltatime * m_ball_velocity * m_ball_dir.x;
+    m_ball_next_pos.y += deltatime * m_ball_velocity * m_ball_dir.y;
 }
 
 void breakout_scene::check_ball_boundaries()
@@ -138,7 +150,7 @@ void breakout_scene::check_ball_boundaries()
 
     if (m_ball_next_pos.y > breakout_defs::WINDOW_HEIGHT - m_ball.get_surf().surface_object()->h)
     {
-        g_scene_manager.set_scene<test_scene>();
+        //g_scene_manager.set_scene<test_scene>();
     }
 }
 
@@ -170,12 +182,14 @@ void breakout_scene::handle_ball_player_collision()
                 m_ball_dir.x *= -1;
             }
         }
+
+        inc_ball_velocity(m_player_velocity / 8);
     }
 }
 
 void breakout_scene::handle_ball_tile_collision()
 {
-    SDL_FRect ball_rect = {
+    const SDL_FRect ball_rect = {
         m_ball_next_pos.x, m_ball_next_pos.y, static_cast<float>(m_ball.get_surf().surface_object()->w),
         static_cast<float>(m_ball.get_surf().surface_object()->h)
     };
@@ -192,7 +206,7 @@ void breakout_scene::handle_ball_tile_collision()
             static_cast<float>(tile->get_surf().surface_object()->h)
         };
 
-        if (collision_utils::collision_dir_result res = collision_utils::check_collision(ball_rect, tile_rect); res !=
+        if (const collision_utils::collision_dir_result res = collision_utils::check_collision(ball_rect, tile_rect); res !=
             0)
         {
             remove_object(id);
@@ -207,7 +221,8 @@ void breakout_scene::handle_ball_tile_collision()
             {
                 m_ball_dir.x *= -1;
             }
-            
+
+            dec_ball_velocity(TILE_SLOWDOWN);
         }
     }
 
@@ -215,6 +230,18 @@ void breakout_scene::handle_ball_tile_collision()
     {
         m_tiles.erase(item);
     }
+}
+
+void breakout_scene::inc_ball_velocity(double velocity_to_inc)
+{
+    m_ball_velocity += velocity_to_inc;
+    m_ball_velocity = std::min(m_ball_velocity, BALL_MAX_SPEED);
+}
+
+void breakout_scene::dec_ball_velocity(double velocity_to_dec)
+{
+    m_ball_velocity -= velocity_to_dec;
+    m_ball_velocity = std::max(m_ball_velocity, BALL_MIN_SPEED);
 }
 
 void breakout_scene::move_player()
