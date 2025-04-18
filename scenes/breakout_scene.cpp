@@ -106,8 +106,8 @@ void breakout_scene::handle_input(double deltatime)
         {
             m_player_dir = direction::LEFT;
         }
-
-    }else
+    }
+    else
     {
         m_player_velocity -= deltatime * PLAYER_ACCELERATION;
         m_player_velocity = std::max(m_player_velocity, 0.0);
@@ -150,7 +150,7 @@ void breakout_scene::check_ball_boundaries()
 
     if (m_ball_next_pos.y > breakout_defs::WINDOW_HEIGHT - m_ball.get_surf().surface_object()->h)
     {
-        //g_scene_manager.set_scene<test_scene>();
+        g_scene_manager.set_scene<test_scene>();
     }
 }
 
@@ -170,30 +170,26 @@ void breakout_scene::handle_ball_player_collision()
 
     if (player_cos_res != 0)
     {
-        if (m_ball.get_pos().y > player_rect.y + player_rect.h || m_ball.get_pos().y < player_rect.y)
+        if (m_ball.get_pos().y > player_rect.y + player_rect.h || m_ball.get_pos().y < player_rect.y
+            || m_ball.get_pos().x > player_rect.x + player_rect.w || m_ball.get_pos().x < player_rect.x)
         {
-            m_ball_dir.y *= -1;
-        }
-
-        if (m_ball.get_pos().x > player_rect.x + player_rect.w || m_ball.get_pos().x < player_rect.x)
-        {
-            if (!m_ball_player_x_collision)
+            if (!m_ball_player_collision)
             {
                 m_ball_dir.y *= -1;
 
-                if (m_ball_dir.x != static_cast<float>(m_player_dir))
+                if ((m_ball.get_pos().x > player_rect.x + player_rect.w || m_ball.get_pos().x < player_rect.x) &&
+                    m_ball_dir.x != static_cast<float>(m_player_dir))
                 {
                     m_ball_dir.x *= -1;
                 }
             }
-
-            m_ball_player_x_collision = true;
-        }else
-        {
-            m_ball_player_x_collision = false;
         }
+        m_ball_player_collision = true;
 
         inc_ball_velocity(m_player_velocity / 4);
+    }else
+    {
+        m_ball_player_collision = false;
     }
 }
 
@@ -216,7 +212,8 @@ void breakout_scene::handle_ball_tile_collision()
             static_cast<float>(tile->get_surf().surface_object()->h)
         };
 
-        if (const collision_utils::collision_dir_result res = collision_utils::check_collision(ball_rect, tile_rect); res !=
+        if (const collision_utils::collision_dir_result res = collision_utils::check_collision(ball_rect, tile_rect);
+            res !=
             0)
         {
             remove_object(id);
