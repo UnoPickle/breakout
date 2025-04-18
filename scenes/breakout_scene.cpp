@@ -177,13 +177,23 @@ void breakout_scene::handle_ball_player_collision()
 
         if (m_ball.get_pos().x > player_rect.x + player_rect.w || m_ball.get_pos().x < player_rect.x)
         {
-            if (m_ball_dir.x != static_cast<float>(m_player_dir))
+            if (!m_ball_player_x_collision)
             {
-                m_ball_dir.x *= -1;
+                m_ball_dir.y *= -1;
+
+                if (m_ball_dir.x != static_cast<float>(m_player_dir))
+                {
+                    m_ball_dir.x *= -1;
+                }
             }
+
+            m_ball_player_x_collision = true;
+        }else
+        {
+            m_ball_player_x_collision = false;
         }
 
-        inc_ball_velocity(m_player_velocity / 8);
+        inc_ball_velocity(m_player_velocity / 4);
     }
 }
 
