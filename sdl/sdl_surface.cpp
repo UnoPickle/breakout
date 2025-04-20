@@ -44,6 +44,16 @@ void sdl_surface::fill_rect(const SDL_Rect* rect, const uint32_t color) const
     }
 }
 
+void sdl_surface::blit_surface(const sdl_surface& src) const
+{
+    blit_surface(src, nullptr, nullptr);
+}
+
+void sdl_surface::blit_surface(const sdl_surface& src, const SDL_Rect* src_rect, const SDL_Rect* dst_rect) const
+{
+    SDL_BlitSurface(src.surface_object(), src_rect, m_surface, dst_rect);
+}
+
 SDL_Surface* sdl_surface::surface_object() const
 {
     return m_surface;

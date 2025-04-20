@@ -7,3 +7,8 @@ iscene* scene_manager::active_scene() const
     return m_scene.get();
 }
 
+void scene_manager::free_scene()
+{
+    m_scene.reset();
+}
+

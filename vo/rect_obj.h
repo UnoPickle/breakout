@@ -6,16 +6,19 @@
 class rect_obj : public ivisual_obj
 {
 public:
-    rect_obj(uint32_t color, const vector2& size, const vector2& start_pos);
+    rect_obj(SDL_Color color, const vector2& size, const vector2& start_pos);
+    ~rect_obj() override = default;
 
     void resize(const vector2& new_size);
-    void set_color(uint32_t color);
+    void set_color(SDL_Color color);
+
+    [[nodiscard]] vector2 size() const;
+    [[nodiscard]] SDL_Color color() const;
 
     sdl_surface& get_surf() override;
 
-    ~rect_obj() override = default;
 
 private:
     std::shared_ptr<sdl_surface> m_rect;
-    uint32_t m_color;
+    SDL_Color m_color;
 };

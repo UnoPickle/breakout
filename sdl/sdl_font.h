@@ -7,11 +7,11 @@
 class sdl_font
 {
 public:
-    sdl_font(const std::filesystem::path& path, const float point_size);
+    explicit sdl_font(TTF_Font* font);
     ~sdl_font();
 
-    TTF_Font* get_font() const;
-    sdl_surface generate_surface(const std::string& text, const SDL_Color color) const;
+    [[nodiscard]] TTF_Font* get_font() const;
+    SDL_Surface* generate_surface(const std::string& text, const SDL_Color color) const;
 
 private:
     TTF_Font* m_font = nullptr;

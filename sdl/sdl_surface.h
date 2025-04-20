@@ -16,6 +16,8 @@ public:
     ~sdl_surface();
 
     void fill_rect(const SDL_Rect* rect, uint32_t color) const;
+    void blit_surface(const sdl_surface& src) const;
+    void blit_surface(const sdl_surface& src, const SDL_Rect* src_rect, const SDL_Rect* dst_rect) const;
 
     [[nodiscard]] SDL_Surface* surface_object() const;
     sdl_surface& operator=(const sdl_surface& other);

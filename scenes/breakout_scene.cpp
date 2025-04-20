@@ -73,12 +73,12 @@ void breakout_scene::generate_tiles(const uint32_t level_amount)
     for (uint32_t i = 0; i < level_amount; ++i)
     {
         generate_level({0, static_cast<float>((i + 1) * LEVEL_HEIGHT_MARGIN + i * TILE_HEIGHT)}, 10, TILE_HEIGHT,
-                       rand());
+                       { (uint8_t)rand(), (uint8_t)rand(), (uint8_t)rand(), 0});
     }
 }
 
 void breakout_scene::generate_level(const vector2& start_location, const uint32_t tile_count,
-                                    const uint32_t tile_height, const uint32_t tile_color)
+                                    const uint32_t tile_height, const SDL_Color tile_color)
 {
     const uint32_t tile_width = (breakout_defs::WINDOW_WIDTH - TILE_PADDING * (tile_count + 1)) / tile_count;
     const vector2 tile_size(tile_width, tile_height);

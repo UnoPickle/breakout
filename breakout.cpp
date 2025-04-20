@@ -10,7 +10,8 @@
 #include "resources/font_resource.h"
 #include "scenes/menu_scene.h"
 
-breakout::breakout() : _window("my game", breakout_defs::WINDOW_WIDTH, breakout_defs::WINDOW_HEIGHT, 0), _sdl_renderer(_window)
+breakout::breakout() : _window("my game", breakout_defs::WINDOW_WIDTH, breakout_defs::WINDOW_HEIGHT, 0),
+                       _sdl_renderer(_window)
 {
     load_resources();
 
@@ -19,6 +20,7 @@ breakout::breakout() : _window("my game", breakout_defs::WINDOW_WIDTH, breakout_
 
 breakout::~breakout()
 {
+    g_scene_manager.free_scene();
 }
 
 void breakout::start()

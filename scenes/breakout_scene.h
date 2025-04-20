@@ -44,7 +44,7 @@ public:
     void exit() override;
 
     void generate_tiles(uint32_t level_amount);
-    void generate_level(const vector2& start_location, uint32_t tile_count, uint32_t tile_height, uint32_t tile_color);
+    void generate_level(const vector2& start_location, uint32_t tile_count, uint32_t tile_height, SDL_Color tile_color);
 
     void handle_input(double deltatime);
 

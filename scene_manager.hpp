@@ -11,6 +11,7 @@ public:
     void set_scene(Args&&... args);
 
     [[nodiscard]] iscene* active_scene() const;
+    void free_scene();
 
 private:
     std::unique_ptr<iscene> m_scene = nullptr;
