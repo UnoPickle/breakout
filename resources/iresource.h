@@ -2,7 +2,8 @@
 
 enum class resource_type {
     IMAGE,
-    AUDIO
+    AUDIO,
+    FONT
 };
 
 class iresource {

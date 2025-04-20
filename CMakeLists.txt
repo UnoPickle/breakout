@@ -70,10 +70,13 @@ add_executable(breakout
         exceptions/sdl_surface_exception.h
         scene_manager.cpp
         scene_manager.hpp
+        resources/font_resource.cpp
+        resources/font_resource.h
 )
 
 
 find_package(SDL3 CONFIG REQUIRED)
-target_link_libraries(breakout PRIVATE SDL3::SDL3)
+find_package(SDL3_ttf CONFIG REQUIRED)
+target_link_libraries(breakout PRIVATE SDL3_ttf::SDL3_ttf SDL3::SDL3)
 target_compile_definitions(breakout PRIVATE SDL_MAIN_USE_CALLBACKS)
 target_link_options(breakout PRIVATE -static)

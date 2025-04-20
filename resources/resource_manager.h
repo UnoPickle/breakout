@@ -11,6 +11,7 @@ public:
     resource_manager();
 
     void load_surface(const std::string& path);
+    void load_font(const std::string& path);
     iresource* get_resource(const std::string& path);
 
 private:

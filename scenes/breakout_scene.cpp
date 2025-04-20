@@ -150,7 +150,7 @@ void breakout_scene::check_ball_boundaries()
 
     if (m_ball_next_pos.y > breakout_defs::WINDOW_HEIGHT - m_ball.get_surf().surface_object()->h)
     {
-        g_scene_manager.set_scene<test_scene>();
+        end_game();
     }
 }
 
@@ -230,6 +230,8 @@ void breakout_scene::handle_ball_tile_collision()
             }
 
             dec_ball_velocity(TILE_SLOWDOWN);
+
+            m_score++;
         }
     }
 
@@ -267,4 +269,10 @@ void breakout_scene::enforce_player_boundaries()
     {
         m_player_next_pos.x = 0;
     }
+}
+
+void breakout_scene::end_game()
+{
+    std::cout << "Zehoo! " << m_score << std::endl;
+    g_scene_manager.set_scene<test_scene>();
 }

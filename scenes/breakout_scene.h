@@ -59,6 +59,8 @@ public:
     void move_player();
     void enforce_player_boundaries();
 
+    void end_game();
+
 private:
     std::unordered_map<scene_obj_id, std::shared_ptr<rect_obj>> m_tiles;
 
@@ -73,4 +75,6 @@ private:
     bool m_ball_player_collision = false;
 
     double m_ball_velocity = BALL_MIN_SPEED;
+
+    uint64_t m_score = 0;
 };
