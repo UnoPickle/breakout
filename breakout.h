@@ -5,6 +5,7 @@
 #include "sdl/sdl_renderer.h"
 #include "sdl/sdl_window.h"
 
+const std::string WINDOW_TITLE = "Breakout";
 
 class breakout
 {
