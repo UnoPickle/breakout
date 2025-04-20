@@ -4,6 +4,7 @@
 #include "iscene.h"
 #include "../vo/image_obj.h"
 #include "../vo/rect_obj.h"
+#include "../vo/text_obj.h"
 
 constexpr uint32_t PLAYER_BOTTOM_MARGIN = 20;
 

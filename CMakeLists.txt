@@ -78,6 +78,10 @@ add_executable(breakout
         exceptions/sdl_font_init_exception.h
         exceptions/sdl_font_exception.cpp
         exceptions/sdl_font_exception.h
+        vo/text_obj.cpp
+        vo/text_obj.h
+        scenes/game_over_scene.cpp
+        scenes/game_over_scene.h
 )
 
 

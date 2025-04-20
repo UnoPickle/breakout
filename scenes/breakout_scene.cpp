@@ -6,8 +6,10 @@
 #include "../breakout_defs.h"
 #include "../input.h"
 #include "../scene_manager.hpp"
+#include "../resources/font_resource.h"
 #include "../resources/image_resource.h"
 #include "../resources/resource_manager.h"
+#include "../sdl/sdl_font.h"
 #include "../utils/collision_utils.h"
 
 breakout_scene::breakout_scene() : m_player(
@@ -40,6 +42,7 @@ breakout_scene::breakout_scene() : m_player(
 
     add_object(m_ball);
     add_object(m_player);
+
 }
 
 void breakout_scene::start()

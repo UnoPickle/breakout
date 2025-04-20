@@ -1,7 +1,5 @@
 #include "sdl_font.h"
 
-#include <iostream>
-
 #include "../exceptions/sdl_font_exception.h"
 #include "../exceptions/sdl_font_init_exception.h"
 
