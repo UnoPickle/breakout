@@ -1,6 +1,5 @@
 #include "breakout.h"
 
-#include <iostream>
 #include <SDL3/SDL_timer.h>
 
 #include "breakout_defs.h"
@@ -14,7 +13,7 @@ breakout::breakout() : _window("my game", breakout_defs::WINDOW_WIDTH, breakout_
 {
     load_resources();
 
-    g_scene_manager.set_scene<test_scene>();
+    g_scene_manager.set_scene<breakout_scene>();
 }
 
 breakout::~breakout()

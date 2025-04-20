@@ -3,6 +3,7 @@
 #include <iostream>
 #include <random>
 
+#include "game_over_scene.h"
 #include "../breakout_defs.h"
 #include "../input.h"
 #include "../scene_manager.hpp"
@@ -276,6 +277,5 @@ void breakout_scene::enforce_player_boundaries()
 
 void breakout_scene::end_game()
 {
-    std::cout << "Zehoo! " << m_score << std::endl;
-    g_scene_manager.set_scene<test_scene>();
+    g_scene_manager.set_scene<game_over_scene>(m_score);
 }
