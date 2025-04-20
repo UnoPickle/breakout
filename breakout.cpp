@@ -8,12 +8,13 @@
 #include "scenes/breakout_scene.h"
 #include "scene_manager.hpp"
 #include "resources/font_resource.h"
+#include "scenes/menu_scene.h"
 
 breakout::breakout() : _window("my game", breakout_defs::WINDOW_WIDTH, breakout_defs::WINDOW_HEIGHT, 0), _sdl_renderer(_window)
 {
     load_resources();
 
-    g_scene_manager.set_scene<breakout_scene>();
+    g_scene_manager.set_scene<menu_scene>();
 }
 
 breakout::~breakout()

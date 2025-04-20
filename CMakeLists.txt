@@ -82,6 +82,8 @@ add_executable(breakout
         vo/text_obj.h
         scenes/game_over_scene.cpp
         scenes/game_over_scene.h
+        scenes/menu_scene.cpp
+        scenes/menu_scene.h
 )
 
 
