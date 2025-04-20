@@ -13,7 +13,7 @@
 #include "../sdl/sdl_font.h"
 #include "../utils/collision_utils.h"
 
-breakout_scene::breakout_scene() : m_player(
+breakout_scene::breakout_scene::breakout_scene() : m_player(
                                        static_cast<image_resource*>(g_resource_manager.
                                            get_resource("assets/player.bmp"))->get_surface(),
                                        {
@@ -46,12 +46,12 @@ breakout_scene::breakout_scene() : m_player(
 
 }
 
-void breakout_scene::start()
+void breakout_scene::breakout_scene::start()
 {
     generate_tiles(LEVEL_AMOUNT);
 }
 
-void breakout_scene::update(double deltatime)
+void breakout_scene::breakout_scene::update(double deltatime)
 {
     handle_input(deltatime);
     enforce_player_boundaries();
@@ -64,11 +64,11 @@ void breakout_scene::update(double deltatime)
     move_ball();
 }
 
-void breakout_scene::exit()
+void breakout_scene::breakout_scene::exit()
 {
 }
 
-void breakout_scene::generate_tiles(const uint32_t level_amount)
+void breakout_scene::breakout_scene::generate_tiles(const uint32_t level_amount)
 {
     for (uint32_t i = 0; i < level_amount; ++i)
     {
@@ -77,7 +77,7 @@ void breakout_scene::generate_tiles(const uint32_t level_amount)
     }
 }
 
-void breakout_scene::generate_level(const vector2& start_location, const uint32_t tile_count,
+void breakout_scene::breakout_scene::generate_level(const vector2& start_location, const uint32_t tile_count,
                                     const uint32_t tile_height, const SDL_Color tile_color)
 {
     const uint32_t tile_width = (breakout_defs::WINDOW_WIDTH - TILE_PADDING * (tile_count + 1)) / tile_count;
@@ -94,7 +94,7 @@ void breakout_scene::generate_level(const vector2& start_location, const uint32_
     }
 }
 
-void breakout_scene::handle_input(double deltatime)
+void breakout_scene::breakout_scene::handle_input(double deltatime)
 {
     if (g_input.get_key(SDL_SCANCODE_RIGHT) == key_state::DOWN || g_input.get_key(SDL_SCANCODE_LEFT) == key_state::DOWN)
     {
@@ -121,18 +121,18 @@ void breakout_scene::handle_input(double deltatime)
     m_player_next_pos.x += deltatime * m_player_velocity * (m_player_dir == direction::RIGHT ? 1 : -1);
 }
 
-void breakout_scene::move_ball()
+void breakout_scene::breakout_scene::move_ball()
 {
     m_ball.set_pos(m_ball_next_pos);
 }
 
-void breakout_scene::handle_ball(double deltatime)
+void breakout_scene::breakout_scene::handle_ball(double deltatime)
 {
     m_ball_next_pos.x += deltatime * m_ball_velocity * m_ball_dir.x;
     m_ball_next_pos.y += deltatime * m_ball_velocity * m_ball_dir.y;
 }
 
-void breakout_scene::check_ball_boundaries()
+void breakout_scene::breakout_scene::check_ball_boundaries()
 {
     if (m_ball_next_pos.x < 0)
     {
@@ -158,7 +158,7 @@ void breakout_scene::check_ball_boundaries()
     }
 }
 
-void breakout_scene::handle_ball_player_collision()
+void breakout_scene::breakout_scene::handle_ball_player_collision()
 {
     SDL_FRect ball_rect = {
         m_ball_next_pos.x, m_ball_next_pos.y, static_cast<float>(m_ball.get_surf().surface_object()->w),
@@ -197,7 +197,7 @@ void breakout_scene::handle_ball_player_collision()
     }
 }
 
-void breakout_scene::handle_ball_tile_collision()
+void breakout_scene::breakout_scene::handle_ball_tile_collision()
 {
     const SDL_FRect ball_rect = {
         m_ball_next_pos.x, m_ball_next_pos.y, static_cast<float>(m_ball.get_surf().surface_object()->w),
@@ -245,24 +245,24 @@ void breakout_scene::handle_ball_tile_collision()
     }
 }
 
-void breakout_scene::inc_ball_velocity(double velocity_to_inc)
+void breakout_scene::breakout_scene::inc_ball_velocity(double velocity_to_inc)
 {
     m_ball_velocity += velocity_to_inc;
     m_ball_velocity = std::min(m_ball_velocity, BALL_MAX_SPEED);
 }
 
-void breakout_scene::dec_ball_velocity(double velocity_to_dec)
+void breakout_scene::breakout_scene::dec_ball_velocity(double velocity_to_dec)
 {
     m_ball_velocity -= velocity_to_dec;
     m_ball_velocity = std::max(m_ball_velocity, BALL_MIN_SPEED);
 }
 
-void breakout_scene::move_player()
+void breakout_scene::breakout_scene::move_player()
 {
     m_player.set_pos(m_player_next_pos);
 }
 
-void breakout_scene::enforce_player_boundaries()
+void breakout_scene::breakout_scene::enforce_player_boundaries()
 {
     if (m_player_next_pos.x > breakout_defs::WINDOW_WIDTH - m_player.get_surf().surface_object()->w)
     {
@@ -275,7 +275,7 @@ void breakout_scene::enforce_player_boundaries()
     }
 }
 
-void breakout_scene::end_game()
+void breakout_scene::breakout_scene::end_game()
 {
-    g_scene_manager.set_scene<game_over_scene>(m_score);
+    g_scene_manager.set_scene<game_over_scene::game_over_scene>(m_score);
 }

@@ -1,13 +1,14 @@
 #include "game_over_scene.h"
 
 #include "breakout_scene.h"
+#include "menu_scene.h"
 #include "../breakout_defs.h"
 #include "../input.h"
 #include "../scene_manager.hpp"
 #include "../resources/font_resource.h"
 #include "../resources/resource_manager.h"
 
-game_over_scene::game_over_scene(const uint64_t score) : m_title(
+game_over_scene::game_over_scene::game_over_scene(const uint64_t score) : m_title(
                                                              static_cast<font_resource*>(g_resource_manager.
                                                                  get_resource("assets/Jersey10-Regular.ttf"))->get_font(
                                                                  TITLE_TEXT_SIZE),
@@ -56,23 +57,23 @@ game_over_scene::game_over_scene(const uint64_t score) : m_title(
     add_object(m_navigation_menu);
 }
 
-void game_over_scene::start()
+void game_over_scene::game_over_scene::start()
 {
 }
 
-void game_over_scene::update(double deltatime)
+void game_over_scene::game_over_scene::update(double deltatime)
 {
     if (g_input.get_key(RESTART_SCANCODE) == key_state::DOWN)
     {
-        g_scene_manager.set_scene<breakout_scene>();
+        g_scene_manager.set_scene<breakout_scene::breakout_scene>();
     }
 
     if (g_input.get_key(MENU_SCANCODE) == key_state::DOWN)
     {
-        g_scene_manager.set_scene<test_scene>();
+        g_scene_manager.set_scene<menu_scene::menu_scene>();
     }
 }
 
-void game_over_scene::exit()
+void game_over_scene::game_over_scene::exit()
 {
 }

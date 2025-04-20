@@ -15,7 +15,7 @@ breakout::breakout() : _window("my game", breakout_defs::WINDOW_WIDTH, breakout_
 {
     load_resources();
 
-    g_scene_manager.set_scene<menu_scene>();
+    g_scene_manager.set_scene<menu_scene::menu_scene>();
 }
 
 breakout::~breakout()
