@@ -8,6 +8,7 @@
 #include "resources/resource_manager.h"
 #include "scenes/breakout_scene.h"
 #include "scene_manager.hpp"
+#include "resources/font_resource.h"
 
 breakout::breakout() : _window("my game", breakout_defs::WINDOW_WIDTH, breakout_defs::WINDOW_HEIGHT, 0), _sdl_renderer(_window)
 {

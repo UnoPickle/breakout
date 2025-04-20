@@ -7,8 +7,11 @@
 class sdl_surface
 {
 public:
+    explicit sdl_surface(SDL_Surface* surface);
+
     explicit sdl_surface(const std::string& filename);
     sdl_surface(const int width, const int height, const SDL_PixelFormat format);
+
     sdl_surface(const sdl_surface& other);
     ~sdl_surface();
 
@@ -18,7 +21,7 @@ public:
     sdl_surface& operator=(const sdl_surface& other);
 
 private:
-    SDL_Surface* _surface;
+    SDL_Surface* m_surface;
 };
 
 

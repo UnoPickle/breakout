@@ -4,9 +4,9 @@
 
 sdl_surface::sdl_surface(const std::string& filename)
 {
-    _surface = SDL_LoadBMP(filename.c_str());
+    m_surface = SDL_LoadBMP(filename.c_str());
 
-    if (_surface == nullptr)
+    if (m_surface == nullptr)
     {
         throw sdl_surface_init_exception("couldn't load " + filename);
     }
@@ -14,12 +14,16 @@ sdl_surface::sdl_surface(const std::string& filename)
 
 sdl_surface::sdl_surface(const int width, const int height, const SDL_PixelFormat format)
 {
-    _surface = SDL_CreateSurface(width, height, format);
+    m_surface = SDL_CreateSurface(width, height, format);
 
-    if (_surface == nullptr)
+    if (m_surface == nullptr)
     {
         throw sdl_surface_init_exception("couldn't create surface");
     }
+}
+
+sdl_surface::sdl_surface(SDL_Surface* surface) : m_surface(surface)
+{
 }
 
 sdl_surface::sdl_surface(const sdl_surface& other)
@@ -29,12 +33,12 @@ sdl_surface::sdl_surface(const sdl_surface& other)
 
 sdl_surface::~sdl_surface()
 {
-    SDL_DestroySurface(_surface);
+    SDL_DestroySurface(m_surface);
 }
 
 void sdl_surface::fill_rect(const SDL_Rect* rect, const uint32_t color) const
 {
-    if (!SDL_FillSurfaceRect(_surface, rect, color))
+    if (!SDL_FillSurfaceRect(m_surface, rect, color))
     {
         throw sdl_surface_init_exception("couldn't fill rect");
     }
@@ -42,11 +46,11 @@ void sdl_surface::fill_rect(const SDL_Rect* rect, const uint32_t color) const
 
 SDL_Surface* sdl_surface::surface_object() const
 {
-    return _surface;
+    return m_surface;
 }
 
 sdl_surface& sdl_surface::operator=(const sdl_surface& other)
 {
-    _surface = other._surface;
+    m_surface = other.m_surface;
     return *this;
 }

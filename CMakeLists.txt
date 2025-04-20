@@ -72,6 +72,12 @@ add_executable(breakout
         scene_manager.hpp
         resources/font_resource.cpp
         resources/font_resource.h
+        sdl/sdl_font.cpp
+        sdl/sdl_font.h
+        exceptions/sdl_font_init_exception.cpp
+        exceptions/sdl_font_init_exception.h
+        exceptions/sdl_font_exception.cpp
+        exceptions/sdl_font_exception.h
 )
 
 
