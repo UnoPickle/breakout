@@ -14,21 +14,21 @@
 #include "../utils/collision_utils.h"
 
 breakout_scene::breakout_scene::breakout_scene() : m_player(
-                                       static_cast<image_resource*>(g_resource_manager.
-                                           get_resource("assets/player.bmp"))->get_surface(),
-                                       {
-                                           0, 0
-                                       }
-                                   ), m_player_next_pos({0, 0}),
-                                   m_player_dir(direction::LEFT), m_ball(
-                                       static_cast<image_resource*>(g_resource_manager.
-                                           get_resource("assets/ball.bmp"))->get_surface(),
-                                       {
-                                           0, 0
-                                       }), m_ball_dir({
-                                       static_cast<float>(direction::LEFT),
-                                       static_cast<float>(direction::UP)
-                                   }), m_ball_next_pos({0, 0})
+                                                       static_cast<image_resource*>(g_resource_manager.
+                                                           get_resource("assets/player.bmp"))->get_surface(),
+                                                       {
+                                                           0, 0
+                                                       }
+                                                   ), m_player_next_pos({0, 0}),
+                                                   m_player_dir(direction::LEFT), m_ball(
+                                                       static_cast<image_resource*>(g_resource_manager.
+                                                           get_resource("assets/ball.bmp"))->get_surface(),
+                                                       {
+                                                           0, 0
+                                                       }), m_ball_dir({
+                                                       static_cast<float>(direction::LEFT),
+                                                       static_cast<float>(direction::UP)
+                                                   }), m_ball_next_pos({0, 0})
 {
     m_player_next_pos.y = static_cast<float>(breakout_defs::WINDOW_HEIGHT - PLAYER_BOTTOM_MARGIN - m_player.get_surf().
         surface_object()->
@@ -43,7 +43,6 @@ breakout_scene::breakout_scene::breakout_scene() : m_player(
 
     add_object(m_ball);
     add_object(m_player);
-
 }
 
 void breakout_scene::breakout_scene::start()
@@ -62,6 +61,8 @@ void breakout_scene::breakout_scene::update(double deltatime)
     handle_ball_player_collision();
     handle_ball_tile_collision();
     move_ball();
+
+    check_win_condition();
 }
 
 void breakout_scene::breakout_scene::exit()
@@ -73,12 +74,12 @@ void breakout_scene::breakout_scene::generate_tiles(const uint32_t level_amount)
     for (uint32_t i = 0; i < level_amount; ++i)
     {
         generate_level({0, static_cast<float>((i + 1) * LEVEL_HEIGHT_MARGIN + i * TILE_HEIGHT)}, 10, TILE_HEIGHT,
-                       { (uint8_t)rand(), (uint8_t)rand(), (uint8_t)rand(), 0});
+                       {(uint8_t)rand(), (uint8_t)rand(), (uint8_t)rand(), 0});
     }
 }
 
 void breakout_scene::breakout_scene::generate_level(const vector2& start_location, const uint32_t tile_count,
-                                    const uint32_t tile_height, const SDL_Color tile_color)
+                                                    const uint32_t tile_height, const SDL_Color tile_color)
 {
     const uint32_t tile_width = (breakout_defs::WINDOW_WIDTH - TILE_PADDING * (tile_count + 1)) / tile_count;
     const vector2 tile_size(tile_width, tile_height);
@@ -113,7 +114,8 @@ void breakout_scene::breakout_scene::handle_input(double deltatime)
         if (m_player_velocity < 0)
         {
             m_player_velocity = std::max(m_player_velocity, -PLAYER_MAX_VELOCITY);
-        }else
+        }
+        else
         {
             m_player_velocity = std::min(m_player_velocity, PLAYER_MAX_VELOCITY);
         }
@@ -198,7 +200,8 @@ void breakout_scene::breakout_scene::handle_ball_player_collision()
         m_ball_player_collision = true;
 
         inc_ball_velocity(std::abs(m_player_velocity) / 4);
-    }else
+    }
+    else
     {
         m_ball_player_collision = false;
     }
@@ -281,6 +284,14 @@ void breakout_scene::breakout_scene::enforce_player_boundaries()
     {
         m_player_next_pos.x = 0;
         m_player_velocity = 0;
+    }
+}
+
+void breakout_scene::breakout_scene::check_win_condition()
+{
+    if (m_tiles.empty())
+    {
+        g_scene_manager.set_scene<game_over_scene::game_over_scene>(m_score);
     }
 }
 

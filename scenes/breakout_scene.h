@@ -10,7 +10,7 @@ namespace breakout_scene
 {
     constexpr uint32_t PLAYER_BOTTOM_MARGIN = 20;
 
-    constexpr uint32_t LEVEL_AMOUNT = 5;
+    constexpr uint32_t LEVEL_AMOUNT = 1;
     constexpr uint32_t LEVEL_HEIGHT_MARGIN = 10;
     constexpr uint32_t TILE_PADDING = 10;
 
@@ -62,6 +62,8 @@ namespace breakout_scene
 
         void move_player();
         void enforce_player_boundaries();
+
+        void check_win_condition();
 
         void end_game();
 
