@@ -98,9 +98,6 @@ void breakout_scene::breakout_scene::handle_input(double deltatime)
 {
     if (g_input.get_key(SDL_SCANCODE_RIGHT) == key_state::DOWN || g_input.get_key(SDL_SCANCODE_LEFT) == key_state::DOWN)
     {
-        m_player_velocity += deltatime * PLAYER_ACCELERATION;
-        m_player_velocity = std::min(m_player_velocity, PLAYER_MAX_VELOCITY);
-
         if (g_input.get_key(SDL_SCANCODE_RIGHT) == key_state::DOWN)
         {
             m_player_dir = direction::RIGHT;
@@ -110,15 +107,25 @@ void breakout_scene::breakout_scene::handle_input(double deltatime)
         {
             m_player_dir = direction::LEFT;
         }
+
+        m_player_velocity += deltatime * PLAYER_ACCELERATION * (m_player_dir == direction::RIGHT ? 1 : -1);
+
+        if (m_player_velocity < 0)
+        {
+            m_player_velocity = std::max(m_player_velocity, -PLAYER_MAX_VELOCITY);
+        }else
+        {
+            m_player_velocity = std::min(m_player_velocity, PLAYER_MAX_VELOCITY);
+        }
     }
     else
     {
-        m_player_velocity -= deltatime * PLAYER_ACCELERATION;
-        m_player_velocity = std::max(m_player_velocity, 0.0);
+        m_player_velocity -= deltatime * PLAYER_ACCELERATION * (m_player_dir == direction::RIGHT ? 1 : -1);
+        m_player_velocity = std::max(std::abs(m_player_velocity), 0.0) * (m_player_dir == direction::RIGHT ? 1 : -1);
     }
 
 
-    m_player_next_pos.x += deltatime * m_player_velocity * (m_player_dir == direction::RIGHT ? 1 : -1);
+    m_player_next_pos.x += deltatime * m_player_velocity;
 }
 
 void breakout_scene::breakout_scene::move_ball()
@@ -190,7 +197,7 @@ void breakout_scene::breakout_scene::handle_ball_player_collision()
         }
         m_ball_player_collision = true;
 
-        inc_ball_velocity(m_player_velocity / 4);
+        inc_ball_velocity(std::abs(m_player_velocity) / 4);
     }else
     {
         m_ball_player_collision = false;
@@ -267,11 +274,13 @@ void breakout_scene::breakout_scene::enforce_player_boundaries()
     if (m_player_next_pos.x > breakout_defs::WINDOW_WIDTH - m_player.get_surf().surface_object()->w)
     {
         m_player_next_pos.x = breakout_defs::WINDOW_WIDTH - m_player.get_surf().surface_object()->w;
+        m_player_velocity = 0;
     }
 
     if (m_player_next_pos.x < 0)
     {
         m_player_next_pos.x = 0;
+        m_player_velocity = 0;
     }
 }
 

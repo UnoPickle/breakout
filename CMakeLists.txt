@@ -86,6 +86,7 @@ add_executable(breakout
         scenes/menu_scene.h
         vo/text_rect_obj.cpp
         vo/text_rect_obj.h
+        scenes/breakout_scene.cpp
 )
 
 
