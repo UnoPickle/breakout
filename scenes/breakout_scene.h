@@ -19,8 +19,8 @@ namespace breakout_scene
     constexpr uint32_t BALL_START_HEIGHT_FROM_PLAYER = 10;
 
     constexpr double PLAYER_ACCELERATION = 3000;
-    constexpr double PLAYER_DEACCELERATION = 2000;
-    constexpr double PLAYER_MAX_VELOCITY = 1000;
+    constexpr double PLAYER_DEACCELERATION = 3000;
+    constexpr double PLAYER_MAX_VELOCITY = 1500;
 
     constexpr double BALL_MIN_SPEED = 300;
     constexpr double BALL_MAX_SPEED = 500;
