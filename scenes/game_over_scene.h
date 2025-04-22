@@ -10,6 +10,7 @@ namespace game_over_scene
 
     constexpr SDL_Color SCENE_TEXT_COLOR = {0xff, 0xff, 0xff, 0};
 
+    constexpr float WIN_TITLE_MARGIN = 5.0f;
     constexpr float SCORE_TITLE_MARGIN = 10.0f;
     constexpr float SCORE_NAV_MARGIN = 20.0f;
 
@@ -24,7 +25,7 @@ namespace game_over_scene
     class game_over_scene : public iscene
     {
     public:
-        game_over_scene(const uint64_t score);
+        game_over_scene(const bool won, const uint64_t score);
         ~game_over_scene() override = default;
 
         void start() override;
@@ -32,6 +33,7 @@ namespace game_over_scene
         void exit() override;
 
     private:
+        text_obj m_win_title;
         text_obj m_title;
         text_obj m_score;
 

@@ -50,6 +50,14 @@ void breakout_scene::breakout_scene::start()
     generate_tiles(LEVEL_AMOUNT);
 }
 
+void breakout_scene::breakout_scene::check_win()
+{
+    if (m_tiles.empty())
+    {
+        m_running = false;
+    }
+}
+
 void breakout_scene::breakout_scene::update(double deltatime)
 {
     handle_input(deltatime);
@@ -62,7 +70,8 @@ void breakout_scene::breakout_scene::update(double deltatime)
     handle_ball_tile_collision();
     move_ball();
 
-    check_win_condition();
+    check_win();
+    check_end();
 }
 
 void breakout_scene::breakout_scene::exit()
@@ -287,15 +296,15 @@ void breakout_scene::breakout_scene::enforce_player_boundaries()
     }
 }
 
-void breakout_scene::breakout_scene::check_win_condition()
+void breakout_scene::breakout_scene::check_end()
 {
-    if (m_tiles.empty())
+    if (!m_running)
     {
-        g_scene_manager.set_scene<game_over_scene::game_over_scene>(m_score);
+        g_scene_manager.set_scene<game_over_scene::game_over_scene>(m_tiles.empty(), m_score);
     }
 }
 
 void breakout_scene::breakout_scene::end_game()
 {
-    g_scene_manager.set_scene<game_over_scene::game_over_scene>(m_score);
+    m_running = false;
 }
